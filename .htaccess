@@ -1,0 +1,6 @@
+Options -Indexes
+
+# Block hidden files such as .git
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>

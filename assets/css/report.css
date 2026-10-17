@@ -1,0 +1,59 @@
+/* EduResult — report card and receipt (A4, printable) */
+* { box-sizing: border-box; }
+body { margin: 0; background: #e9ecf2; font-family: "Segoe UI", Tahoma, Arial, sans-serif; color: #1f2937; padding: 16px; }
+.toolbar { max-width: 210mm; margin: 0 auto 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.toolbar a { color: #1a237e; text-decoration: none; font-weight: 600; }
+.toolbar button { background: #1a237e; color: #fff; border: 0; border-radius: 6px; padding: 10px 16px; font-size: 14px; cursor: pointer; margin-left: 6px; }
+.toolbar button:disabled { opacity: .6; }
+.notice { max-width: 210mm; margin: 0 auto 12px; background: #dcfce7; color: #14532d; border-radius: 8px; padding: 12px 16px; line-height: 1.6; }
+.notice.warn { background: #fef3c7; color: #78350f; }
+.notice .tok { font-family: Consolas, monospace; font-size: 18px; font-weight: 700; letter-spacing: 2px; background: #fff; padding: 2px 8px; border-radius: 4px; }
+
+.sheet { position: relative; width: 210mm; max-width: 100%; min-height: 297mm; margin: 0 auto; background: #fff; padding: 14mm 12mm; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+.watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-35deg); font-size: 64px; font-weight: 800; color: rgba(26,35,126,.045); white-space: nowrap; pointer-events: none; text-transform: uppercase; }
+.rc-head { display: flex; gap: 18px; align-items: center; border-bottom: 3px solid #1a237e; padding-bottom: 12px; }
+.crest { flex: 0 0 74px; height: 74px; border-radius: 14px; background: linear-gradient(135deg, #1a237e, #3949ab); color: #fff; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center; }
+.school h1 { margin: 0; color: #1a237e; font-size: 24px; text-transform: uppercase; letter-spacing: .5px; }
+.school .motto { color: #3949ab; font-style: italic; font-size: 13px; margin-top: 2px; }
+.school .contact { color: #6b7280; font-size: 12px; margin-top: 4px; }
+.rc-title { text-align: center; margin: 12px 0; padding: 7px; background: #e8eaf6; color: #1a237e; font-weight: 700; border-radius: 6px; text-transform: uppercase; font-size: 14px; letter-spacing: .5px; }
+.info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 14px; background: #f8f9fb; border-radius: 6px; padding: 10px 12px; font-size: 13px; margin-bottom: 10px; }
+.info span { display: block; font-size: 10px; color: #1a237e; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; }
+.marks { width: 100%; border-collapse: collapse; font-size: 11.5px; position: relative; }
+.marks th { background: #1a237e; color: #fff; padding: 6px 4px; font-weight: 600; border: 1px solid #1a237e; }
+.marks th small { display: block; font-weight: 400; opacity: .75; font-size: 9.5px; }
+.marks td { border: 1px solid #dfe3ea; padding: 5px 4px; text-align: center; }
+.marks .l { text-align: left; }
+.marks .b { font-weight: 700; }
+.marks tbody tr:nth-child(even) td { background: #fafbfd; }
+.grade-A { color: #15803d; } .grade-F { color: #b91c1c; }
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; margin: 12px 0; }
+.summary div { background: #f1f3f9; border-radius: 6px; padding: 8px; text-align: center; }
+.summary strong { display: block; font-size: 18px; color: #1a237e; }
+.summary span { font-size: 10.5px; color: #6b7280; text-transform: uppercase; }
+.remarks { display: grid; gap: 8px; }
+.remark { border: 1px solid #dfe3ea; border-radius: 6px; padding: 8px 10px; }
+.remark h4 { margin: 0 0 4px; font-size: 12px; color: #1a237e; }
+.remark p { margin: 0; font-size: 13px; min-height: 18px; }
+.foot { display: flex; justify-content: space-between; margin-top: 12px; font-size: 12px; color: #374151; }
+.key { margin-top: 10px; font-size: 10px; color: #6b7280; border-top: 1px dashed #dfe3ea; padding-top: 6px; }
+
+/* Receipt */
+.receipt { min-height: auto; }
+.receipt table.lines { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+.receipt table.lines td, .receipt table.lines th { border-bottom: 1px solid #e5e7eb; padding: 8px 6px; text-align: left; }
+.receipt table.lines .num { text-align: right; }
+.receipt .paid-stamp { display: inline-block; border: 3px solid #15803d; color: #15803d; font-weight: 800; padding: 4px 14px; border-radius: 6px; transform: rotate(-6deg); font-size: 18px; letter-spacing: 2px; }
+
+@media (max-width: 760px) {
+  body { padding: 8px; }
+  .sheet { padding: 16px 10px; min-height: 0; }
+  .info { grid-template-columns: repeat(2, 1fr); }
+  .marks { font-size: 10px; display: block; overflow-x: auto; }
+}
+@media print {
+  @page { size: A4; margin: 0; }
+  body { background: #fff; padding: 0; }
+  .no-print { display: none !important; }
+  .sheet { box-shadow: none; width: 210mm; }
+}
